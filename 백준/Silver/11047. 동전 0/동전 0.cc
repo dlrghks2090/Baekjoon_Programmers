@@ -2,30 +2,32 @@
 
 using namespace std;
 
+int N;
+int K;
+int arr[11] = { 0, };
+int sol = 0;
+
 int main() {
 
-	int N, K;
-	int* arr;
-	int tmp = 0;
-	int sol = 0;
-
 	cin >> N >> K;
-	arr = new int[N+1];
-	tmp = K;
 
 	for (int i = 0; i < N; i++) {
 		cin >> arr[i];
 	}
 
 	for (int i = N - 1; i >= 0; i--) {
-		if (tmp / arr[i] != 0) {
-			sol += tmp / arr[i];
-			tmp = tmp % arr[i];
+		if (K / arr[i] != 0) {
+			sol += K / arr[i];
+			K = K % arr[i];
+		}
+
+		if (K == 0) {
+			break;
 		}
 	}
 
 	cout << sol;
 
-	delete[] arr;
+
 	return 0;
 }
