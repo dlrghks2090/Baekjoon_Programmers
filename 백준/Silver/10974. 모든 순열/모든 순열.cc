@@ -2,49 +2,36 @@
 
 using namespace std;
 
-int N;
-int arr[10] = { 0, };
+int arr[9] = { 0, };
+int check[9] = { 0, };
 
-void dfs(int count) {
 
-	if (count == N) {
-		for (int i = 1; i <= N; i++) {
-
-			cout << arr[i];
-			if (i != N) {
-				cout << " ";
-			}
-			else {
-				cout << '\n';
-			}
+void dfs(int n, int count) {
+	if (count > n) {
+		for (int i = 1; i <= n; i++) {
+			cout << arr[i] << " ";
 		}
-		return;
+		cout << '\n';
 	}
 
+	for (int i = 1; i <= n; i++) {
 
-
-	for (int i = 1; i <= N; i++) {
-		int flag = 0;
-		for (int j = 1; j <= count; j++) {
-			if (arr[j] == i) {
-				flag = 1;
-			}
+		if (check[i] != 1) {
+			arr[count] = i;
+			check[i] = 1;
+			dfs(n, count + 1);
+			check[i] = 0;
 		}
-
-		if (flag == 1) {
-			continue;
-		}
-
-		arr[count + 1] = i;
-		dfs(count + 1);
 	}
 }
 
 int main() {
 
+	int N;
+
 	cin >> N;
 
-	dfs(0);
+	dfs(N, 1);
 
 
 	return 0;
