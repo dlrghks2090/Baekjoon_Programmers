@@ -3,44 +3,42 @@
 using namespace std;
 
 int N;
-int sol = 0;
 int T[16] = { 0, };
 int P[16] = { 0, };
 
-void dfs(int n, int total) {
+int sol = 0;
 
-	if (n > N) {
+void dfs(int idx, int total, int pre_val) {
+
+	if (idx > N) {
+		if (idx == N + 1) {
+			total += pre_val;
+		}
 		if (sol < total) {
 			sol = total;
-			//cout << "n = " << n << " 일때 끝날때 들어온 total 값 : " << total << endl;
-			return;
 		}
+		return;
 	}
-	
-	for (int i = n; i <= N; i++) {
-		if ((i - 1) + T[i] <= N) {
-			dfs(i + T[i], total + P[i]);
-		}
-		else {
-			if (sol < total) {
-				sol = total;
 
-				//cout << "n = " << n << " 일때 else에 들어온 total 값 : " << total << endl;
-			}
-		}
+	for (int i = idx; i <= N; i++) {
+		//cout << total + pre_val << '\n';
+		dfs(i+ T[i], total+pre_val, P[i]);
 	}
 
 }
+
+
+
 
 int main() {
 
 	cin >> N;
 
-	for (int i = 0; i < N; i++) {
-		cin >> T[i + 1] >> P[i + 1];
+	for (int i = 1; i <= N; i++) {
+		cin >> T[i] >> P[i];
 	}
 
-	dfs(1, 0);
+	dfs(1, 0, 0);
 
 	cout << sol;
 
