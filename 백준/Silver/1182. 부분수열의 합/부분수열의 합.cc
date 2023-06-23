@@ -2,46 +2,41 @@
 
 using namespace std;
 
-int N, S;
-int map[22] = { 0, };
-int arr[22] = { 0, };
 int sol = 0;
 
-void dfs(int num, int count) {
-
-	if (count != 0) {
-		int total = 0;
-
-		for (int k = 1; k <= count; k++) {
-			total += arr[k];
-		}
-
-		//cout << "count : " << count << "  total : " << total << '\n';
-
-		if (total == S) {
-			sol++;
-		}
+void dfs(int n, int s, int* arr,int idx, int total) {
+	if (total == s) {
+		++sol;
 	}
 
-	for (int i = num; i <= N; i++) {
-		arr[count + 1] = map[i];
-		dfs(i + 1, count + 1);
+	for (int i = idx; i <= n; i++) {
+		total += arr[i];
+		dfs(n, s, arr, i + 1, total);
+		total -= arr[i];
 	}
-
 }
 
 int main() {
 
+	int N, S;
+	int* arr;
+
 	cin >> N >> S;
 
+	arr = new int[N+1];
+
 	for (int i = 1; i <= N; i++) {
-		cin >> map[i];
+		cin >> arr[i];
 	}
 
-	dfs(1, 0);
+	if (S == 0) {
+		sol = -1;
+	}
+
+	dfs(N, S, arr, 1, 0);
 
 	cout << sol;
 
-
+	delete[] arr;
 	return 0;
 }
