@@ -1,111 +1,82 @@
 #include<iostream>
-#include<queue>
 #include<string>
+#include<vector>
+#include<queue>
 
 using namespace std;
 
 int N, M;
-string str[101];
-int arr[102][102] = { 0, };
+int map[102][102] = { 0, };
 int visit[102][102] = { 0, };
-int sol;
+int sol = 0;
 
-queue<pair<int, int>> que;
-pair<int, int> p;
-int idx1, idx2;
+void bfs() {
 
-
-void bfs(int x, int y) {
-
-	idx1 = x;
-	idx2 = y;
-	p.first = (idx1 - 1) * M + idx2;
+	queue<pair<pair<int, int>, int>> que;
+	pair<pair<int, int>, int> p2;
+	pair<int, int> p;
+	int arr1[4] = { 0,1,0,-1 };
+	int arr2[4] = { 1,0,-1,0 };
+	
+	p.first = 1;
 	p.second = 1;
-	que.push(p);	
 
-	while (true) {
-		pair<int, int> p2;
+	p2.first = p;
+	p2.second = 1;
 
-		if (idx1 == N && idx2 == M) {
-			sol = p.second;
-			break;
+	que.push(p2);
+	visit[1][1] = 1;
+
+	while (!que.empty()) {
+		int a = que.front().first.first;
+		int b = que.front().first.second;
+		int count = que.front().second;
+
+		//cout << "a = " << a << " b = " << b << endl;
+
+		if (a == N && b == M) {
+			sol = que.front().second;
 		}
-
-		p = que.front();
-
-
-		if (p.first % M == 0) {
-			idx2 = M;
-			idx1 = p.first / M;
-		}
-		else {
-			idx2 = p.first % M;
-			idx1 = p.first / M + 1;
-		}
-
-		/*cout << " 현재 단계 " << endl;
-		cout << "x = " << idx1 << "   y = " << idx2 << endl;*/
 
 		que.pop();
 
-		/*cout << "  방문목록  " << endl;
-		for (int i = 1; i <= N; i++) {
-			for (int j = 1; j <= M; j++) {
-				cout << visit[i][j];
+		for (int i = 0; i < 4; i++) {
+			if (map[a + arr1[i]][b + arr2[i]] == 1 && visit[a + arr1[i]][b + arr2[i]] == 0) {
+				p.first = a + arr1[i];
+				p.second = b + arr2[i];
+				p2.first = p;
+				p2.second = count + 1;
+
+				que.push(p2);
+
+				visit[p.first][p.second] = 1;
+				
 			}
-			cout << endl;
-		}*/
-		
-		if (arr[idx1 + 1][idx2] == 1 && visit[idx1 + 1][idx2] == 0) {
-			p2.first = (idx1 + 1 - 1) * M + idx2;
-			p2.second = p.second + 1;
-			que.push(p2);
-			visit[idx1 + 1][idx2] = 1;
-		}
-		if (arr[idx1 - 1][idx2] == 1 && visit[idx1 - 1][idx2] == 0) {
-			p2.first = (idx1 - 1 - 1) * M + idx2;
-			p2.second = p.second + 1;
-			que.push(p2);
-			visit[idx1 - 1][idx2] = 1;
-		}
-		if (arr[idx1][idx2 + 1] == 1 && visit[idx1][idx2 + 1] == 0) {
-			p2.first = (idx1 - 1) * M + idx2 + 1;
-			p2.second = p.second + 1;
-			que.push(p2);
-			visit[idx1][idx2 + 1] = 1;
-		}
-		if (arr[idx1][idx2 - 1] == 1 && visit[idx1][idx2 - 1] == 0) {
-			p2.first = (idx1 - 1) * M + idx2 - 1;
-			p2.second = p.second + 1;
-			que.push(p2);
-			visit[idx1][idx2 - 1] = 1;
 		}
 	}
+	
+
+
+
 }
+
 
 int main() {
 
+	string str;
+
 	cin >> N >> M;
 
-	for (int i = 0; i < N; i++) {
-		cin >> str[i];
-	}
 
 	for (int i = 1; i <= N; i++) {
-		for (int j = 1; j <= M; j++) {
-			arr[i][j] = str[i-1][j-1] - '0';
+		cin >> str;
+		for (int j = 0; j < str.size(); j++) {
+			map[i][j + 1] = str[j] - '0';
 		}
 	}
 
-	/*for (int i = 1; i <= N; i++) {
-		for (int j = 1; j <= M; j++) {
-			cout << arr[i][j];
-		}
-		cout << endl;
-	}*/
-
-	bfs(1, 1);
-
+	bfs();
+	
 	cout << sol;
 
 	return 0;
