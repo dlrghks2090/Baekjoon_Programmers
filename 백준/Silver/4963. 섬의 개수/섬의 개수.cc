@@ -1,98 +1,55 @@
 #include<iostream>
 #include<queue>
-#include<algorithm>
 
 using namespace std;
 
-int w, h;
+
 int map[52][52] = { 0, };
 int visit[52][52] = { 0, };
-int sol = 0;
 
+void init() {
 
-void bfs(int a, int b) {
-	queue<pair<int, int>> que;
-	pair<int, int> p;
-	int x, y;
-
-	p.first = a;
-	p.second = b;
-
-	que.push(p);
-	visit[a][b] = 1;
-
-	while (1) {
-		if (que.empty() == true) {
-			break;
-		}
-		x = que.front().first;
-		y = que.front().second;
-		que.pop();
-
-		if (map[x + 1][y] == 1 && visit[x + 1][y] == 0) {
-			p.first = x + 1;
-			p.second = y;
-			que.push(p);
-			visit[p.first][p.second] = 1;
-		}
-		if (map[x - 1][y] == 1 && visit[x - 1][y] == 0) {
-			p.first = x - 1;
-			p.second = y;
-			que.push(p);
-			visit[p.first][p.second] = 1;
-		}
-		if (map[x][y + 1] == 1 && visit[x][y + 1] == 0) {
-			p.first = x;
-			p.second = y + 1;
-			que.push(p);
-			visit[p.first][p.second] = 1;
-		}
-		if (map[x][y - 1] == 1 && visit[x][y - 1] == 0) {
-			p.first = x;
-			p.second = y - 1;
-			que.push(p);
-			visit[p.first][p.second] = 1;
-		}
-
-		if (map[x + 1][y + 1] == 1 && visit[x + 1][y + 1] == 0) {
-			p.first = x + 1;
-			p.second = y + 1;
-			que.push(p);
-			visit[p.first][p.second] = 1;
-		}
-		if (map[x + 1][y - 1] == 1 && visit[x + 1][y - 1] == 0) {
-			p.first = x + 1;
-			p.second = y - 1;
-			que.push(p);
-			visit[p.first][p.second] = 1;
-		}
-		if (map[x - 1][y + 1] == 1 && visit[x - 1][y + 1] == 0) {
-			p.first = x - 1;
-			p.second = y + 1;
-			que.push(p);
-			visit[p.first][p.second] = 1;
-		}
-		if (map[x - 1][y - 1] == 1 && visit[x - 1][y - 1] == 0) {
-			p.first = x - 1;
-			p.second = y - 1;
-			que.push(p);
-			visit[p.first][p.second] = 1;
+	for (int i = 0; i < 52; i++) {
+		for (int j = 0; j < 52; j++) {
+			map[i][j] = 0;
+			visit[i][j] = 0;
 		}
 	}
 }
 
-void init() {
-	for (int i = 1; i <= 51; i++) {
-		for (int j = 1; j <= 51; j++) {
-			map[i][j] = visit[i][j] = 0;
+void bfs(int h, int w) {
+	queue < pair<int, int>> que;
+	pair<int, int> p;
+	int check_w[8] = {0,1,1,1,0,-1,-1,-1};
+	int check_h[8] = {-1,-1,0,1,1,1,0,-1};
+
+	p.first = h;
+	p.second = w;
+	que.push(p);
+	visit[h][w] = 1;
+
+	while (!que.empty()) {
+		int h1 = que.front().first;
+		int w1 = que.front().second;
+		que.pop();
+
+		for (int k = 0; k < 8; k++) {
+			if (map[h1 + check_h[k]][w1 + check_w[k]] == 1 && visit[h1 + check_h[k]][w1 + check_w[k]] == 0) {
+				p.first = h1 + check_h[k];
+				p.second = w1 + check_w[k];
+				que.push(p);
+				visit[h1 + check_h[k]][w1 + check_w[k]] = 1;
+			}
 		}
 	}
 }
 
 int main() {
 
-	while (1) {
+	int w, h;
+	int sol = 0;
 
+	while (1) {
 		cin >> w >> h;
 
 		if (w == 0 && h == 0) {
@@ -114,12 +71,12 @@ int main() {
 			}
 		}
 
-		//cout << '\n';
 		cout << sol << endl;
+
 		sol = 0;
 		init();
-
 	}
+
 
 
 	return 0;
