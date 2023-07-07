@@ -1,68 +1,75 @@
 #include<iostream>
 #include<queue>
-#include<algorithm>
 
 using namespace std;
 
 int N, K;
-int sol = 0;
-int visit[200001] = { 0, };
+int visit[100001] = { 0, };
 
-void bfs(int num) {
+void bfs(int n, int k) {
 
-	queue<pair<int,int>> que;
+	queue<pair<int, int>> que;
 	pair<int, int> p;
 
-	p.first = num;
+	p.first = n;
 	p.second = 0;
-
+	visit[n] = 1;
 	que.push(p);
-	visit[num] = 1;
 
-	while (1) {
-		pair<int, int> p2;
+	while (!que.empty()) {
+		int idx = que.front().first;
+		int count = que.front().second;
 
-		if (que.front().first == K) {
-			sol = que.front().second;
-			break;
-		}
-
-		p = que.front();
 		que.pop();
 
-		if (p.first * 2 - K < K - p.first && visit[p.first * 2] == 0) {
-			p2.first = p.first * 2;
-			p2.second = p.second + 1;
-			que.push(p2);
-			visit[p.first * 2] = 1;
-		}
-		if (visit[p.first + 1] == 0) {
-			p2.first = p.first + 1;
-			p2.second = p.second + 1;
-			que.push(p2);
-			visit[p.first + 1] = 1;
+		//cout << "idx = " << idx << " count = " << count <<'\n';
+
+		if (idx == k) {
+			cout << count;
+			return;
 		}
 
-		if (visit[p.first - 1] == 0) {
-			p2.first = p.first - 1;
-			p2.second = p.second + 1;
-			que.push(p2);
-			visit[p.first - 1] = 1;
+		if (idx + 1 <= 100000) {
+			if (visit[idx + 1] == 0) {
+			//if (idx < k &&  visit[idx + 1] == 0) {
+				p.first = idx + 1;
+				p.second = count + 1;
+				que.push(p);
+				visit[p.first] = 1;
+			}
 		}
 
-		
-		
+		if (0 <= idx - 1) {
+			if (visit[idx - 1] == 0) {
+			//if (idx > k && visit[idx - 1] == 0) {
+				p.first = idx - 1;
+				p.second = count + 1;
+				que.push(p);
+				visit[p.first] = 1;
+			}
+		}
 
+		if (idx * 2 <= 100000) {
+			if (visit[idx * 2] == 0) {
+			//if (idx * 2 - k < k - idx && visit[idx * 2] == 0) {
+				p.first = idx * 2;
+				p.second = count + 1;
+				que.push(p);
+				visit[p.first] = 1;
+			}
+		}
 	}
+
+
+
 }
 
 int main() {
 
 	cin >> N >> K;
 
-	bfs(N);
+	bfs(N,K);
 
-	cout << sol << endl;
 
 	return 0;
 }
