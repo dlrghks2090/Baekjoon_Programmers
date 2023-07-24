@@ -2,31 +2,30 @@
 
 using namespace std;
 
-int dp[1001] = { 0, };
-int arr[1001] = { 0, };
-
 int main() {
 
 	int N;
+	int* dp;
 
 	cin >> N;
 
+	dp = new int[N + 1]{ 0, };
+
 	for (int i = 1; i <= N; i++) {
-		cin >> arr[i];
+		cin >> dp[i];
 	}
 
-	dp[1] = arr[1];
 	for (int i = 2; i <= N; i++) {
-		dp[i] = arr[i];
-		for (int j = 1; j < i; j++) {
-			if (dp[i - j] + arr[j] > dp[i]) {
-				dp[i] = dp[i - j] + arr[j];
+		for (int j = 0; j <= i / 2; j++) {
+			if (dp[j] + dp[i - j] > dp[i]) {
+				dp[i] = dp[j] + dp[i - j];
 			}
 		}
 	}
+	
 
 	cout << dp[N];
 
-
+	delete[] dp;
 	return 0;
 }
