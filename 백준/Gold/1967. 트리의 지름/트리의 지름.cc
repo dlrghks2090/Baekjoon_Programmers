@@ -8,7 +8,6 @@ int n;
 vector<pair<int, int>> map[10001];
 int node, node2, value;
 pair<int, int> p;
-int visit[10001] = { 0, };
 int check = 0;
 int sol = 0;
 int start;
@@ -17,7 +16,6 @@ vector<int> tmp;
 void init_visit(int n) {
 
 	for (int i = 0; i <= n; i++) {
-		visit[i] = 0;
 	}
 }
 
@@ -46,7 +44,6 @@ void dfs(int idx, int count) {
 			a = map[idx][i].first;
 			num = map[idx][i].second;
 			
-			visit[a] = 1;
 			++check;
 			dfs(a, num);
 			
@@ -58,7 +55,6 @@ void dfs(int idx, int count) {
 			a = map[idx][i].first;
 			num = map[idx][i].second;
 
-			visit[a] = 1;
 			dfs(a, count + num);
 		}
 	}
