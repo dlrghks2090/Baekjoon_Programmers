@@ -3,8 +3,8 @@
 using namespace std;
 
 int N;
-long long dp[1001][10] = { 0, };
-long long sol = 0;
+int dp[1001][10] = { 0, };
+int sol = 0;
 
 
 int main() {
