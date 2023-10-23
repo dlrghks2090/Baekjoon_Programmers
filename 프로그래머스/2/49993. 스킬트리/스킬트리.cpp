@@ -32,11 +32,11 @@ int solution(string skill, vector<string> skill_trees) {
                     if (idx < k && visit[k-1] == 1) {
                         idx = k;
                         visit[k] = 1;
-                        cout << "k= " << k << " skill= " << skill[k-1] << '\n';
+                        //cout << "k= " << k << " skill= " << skill[k-1] << '\n';
                         break;
                     } 
                     flag=1;
-                    cout << "k= " << k << " skill= " << skill[k-1] << '\n';
+                    //cout << "k= " << k << " skill= " << skill[k-1] << '\n';
                     break;
                     
                 }
@@ -48,10 +48,10 @@ int solution(string skill, vector<string> skill_trees) {
         }
         if (count == skill_trees[i].size()) {
             answer++;
-            cout << "성공: " << skill_trees[i] << '\n';
+            //cout << "성공: " << skill_trees[i] << '\n';
         }
         else {
-            cout << "실패: " << skill_trees[i] << '\n';
+            //cout << "실패: " << skill_trees[i] << '\n';
         }
         
         
