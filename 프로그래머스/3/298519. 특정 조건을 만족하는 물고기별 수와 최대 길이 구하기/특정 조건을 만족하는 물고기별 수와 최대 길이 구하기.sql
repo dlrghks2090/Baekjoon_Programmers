@@ -1,0 +1,2 @@
+-- 코드를 작성해주세요
+select count(a.id) as fish_count, max(a.length) as max_length, a.fish_type from (select id,fish_type, if(length is null,10,length) as length from fish_info) a group by a.fish_type having avg(a.length) >=33 order by a.fish_type asc;
