@@ -1,4 +1,3 @@
--- 코드를 작성해주세요
 select id, 
     case 
         when (row_number() over(order by size_of_colony desc))<=((select count(*) from ecoli_data)/4) then 'CRITICAL'
