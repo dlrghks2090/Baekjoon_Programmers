@@ -8,12 +8,15 @@ int max_c;
 int r_tmp[4] = {0, 1, 0, -1};
 int c_tmp[4] = {1, 0, -1, 0};
 int dp[500][500];
+int check=0;
 
 int dfs(int row, int col) {
+    check +=1;
     if (row == max_r && col == max_c) {
         return 1;
     }
 
+    // 중복을 방문을 방지
     if(dp[row][col] != -1) {
         return dp[row][col];
     }
@@ -50,6 +53,7 @@ int main() {
     max_c = m-1;
 
     cout << dfs(0,0) << '\n';
+    //cout << "count= " << check << '\n';
 
     return 0;
 }
