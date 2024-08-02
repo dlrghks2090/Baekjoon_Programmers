@@ -3,8 +3,8 @@
 
 매일 1문제 이상 꾸준히 푸는 것을 목표로 하고 있습니다.
 
-PS 주 언어는 C++이고 서브 언어로 JAVA를 연습하고 있습니다.
+주 언어는 C++이고 서브 언어로 JAVA를 연습하고 있습니다.
 
-SQL은 MySQL로 프로그래머스의 모든 문제를 푸는것을 목표로 하였습니다.
+SQL문제는 MySQL로 프로그래머스의 모든 문제를 푸는것을 목표로 하였습니다.
 
 This is a auto push repository for Baekjoon Online Judge created with [BaekjoonHub](https://github.com/BaekjoonHub/BaekjoonHub).
