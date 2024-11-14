@@ -16,29 +16,25 @@ class Main{
                 st1.push(str.charAt(i));
             }
             else {
-                if (st2.isEmpty()) {
+                if (str.charAt(i) == '(') {
+                    st2.push(str.charAt(i));
+                } else if (str.charAt(i) == ')') {
+                    while (st2.peek() != '(') {
+                        st1.push(st2.pop());
+                    }
+                    st2.pop();
+                } else if (str.charAt(i) == '+' || str.charAt(i) == '-') {
+                    while (!st2.isEmpty() && st2.peek() != '(') {
+                        st1.push(st2.pop());
+                    }
+                    st2.push(str.charAt(i));
+                } else if (str.charAt(i) == '*' || str.charAt(i) == '/') {
+                    while (!st2.isEmpty() && (st2.peek() == '*' || st2.peek() == '/')) {
+                        st1.push(st2.pop());
+                    }
                     st2.push(str.charAt(i));
                 }
-                else {
-                    if (str.charAt(i) == '(') {
-                        st2.push(str.charAt(i));
-                    } else if (str.charAt(i) == ')') {
-                        while (st2.peek() != '(') {
-                            st1.push(st2.pop());
-                        }
-                        st2.pop();
-                    } else if (str.charAt(i) == '+' || str.charAt(i) == '-') {
-                        while (!st2.isEmpty() && st2.peek() != '(') {
-                            st1.push(st2.pop());
-                        }
-                        st2.push(str.charAt(i));
-                    } else if (str.charAt(i) == '*' || str.charAt(i) == '/') {
-                        while (!st2.isEmpty() && (st2.peek() == '*' || st2.peek() == '/')) {
-                            st1.push(st2.pop());
-                        }
-                        st2.push(str.charAt(i));
-                    }
-                }
+
             }
         }
         while(!st1.isEmpty()) {
